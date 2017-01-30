@@ -444,7 +444,7 @@ public class DepInheritView extends FrameView {
             tbl_schedule.setValueAt(year, year - 1, 0);
             tbl_schedule.setValueAt(currency.format(asset.getBeginningBalance(year, method)), year - 1, 1);
             if(method.equalsIgnoreCase("S")) {
-                tbl_schedule.setValueAt(currency.format(asset.getAnnualDepreciation()), year - 1, 2);
+   //             tbl_schedule.setValueAt(currency.format(asset.getAnnualDepreciation()), year - 1, 2);
             } else {
                 tbl_schedule.setValueAt(currency.format(asset.getAnnualDepreciation(year)), year - 1, 2);
             }

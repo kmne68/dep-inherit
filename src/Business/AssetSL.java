@@ -34,11 +34,10 @@ public class AssetSL extends Asset {
     public void build() {
 
         try {
-            this.beginningBalance = new double[this.getLifeOfItem()];
-            this.endingBalance = new double[this.getLifeOfItem()];
+            this.beginningBalance = new double[super.getLifeOfItem()];
+            this.endingBalance = new double[super.getLifeOfItem()];
 
             this.annualDepreciation = (super.getAssetCost() - super.getSalvageValue()) / super.getLifeOfItem();
-
             this.beginningBalance[0] = super.getAssetCost();   // beginning straight line           
             
             for (int year = 0; year < super.getLifeOfItem(); year++) {
@@ -56,4 +55,25 @@ public class AssetSL extends Asset {
         }
     } // end build
     
+    
+    public double getAnnualDepreciation() {
+        
+        
+        return this.annualDepreciation;
+    }
+    
+    /*
+        public double getAnnualDepreciation() {
+
+        // Straight line depreciation
+        if (!this.built) {
+            if (isValid()) {
+                build();
+            }
+            if (!this.built) {
+                return -1;
+            }
+        }
+        return this.annualDepreciation[0][0];
+    } */
 }

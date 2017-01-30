@@ -54,11 +54,11 @@ public class Asset {
         this.errorMessage = "";
 
         if (isValid()) {
-            build();
+        //    build();
         }
     }
 
-    public void build() {
+/*    public void build() {
 
         System.out.println("Outside try in build()");
         // depRate, depWork (temporary)
@@ -111,7 +111,7 @@ public class Asset {
             this.built = false;
         }
     } // end build
-
+*/
     // Calculate annual depreciation with the straight line method
  //   public double getAnnualDepreciation() {
 
@@ -128,26 +128,14 @@ public class Asset {
    //     return annualDepreciation;
    // } // end getAnnualDepreciation()
 
-    public double getAnnualDepreciation() {
 
-        // Straight line depreciation
-        if (!this.built) {
-            if (isValid()) {
-                build();
-            }
-            if (!this.built) {
-                return -1;
-            }
-        }
-        return this.annualDepreciation[0][0];
-    }
 
     public double getAnnualDepreciation(int year) {
 
         // Double declining depreciation
         if (!this.built) {
             if (isValid()) {
-                build();
+       //         build();
             }
             if (!this.built) {
                 return -10;
@@ -164,7 +152,7 @@ public class Asset {
 
         if (!this.built) {
             if (isValid()) {
-                build();
+      //          build();
             }
             if (!this.built) {
                 return -1;
@@ -188,7 +176,7 @@ public class Asset {
 
         if (!this.built) {
             if (isValid()) {
-                build();
+    //            build();
             }
             if (!this.built) {
                 return -1;
@@ -297,7 +285,7 @@ public class Asset {
         String rmsg = "";
         if (!this.built) {
             if (isValid()) {
-                build();
+    //            build();
             }
             if (!this.built) {
 
