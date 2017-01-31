@@ -30,7 +30,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DepInheritView extends FrameView {
     
-    Asset asset;
+    AssetSL assetSL;
+    AssetDDL assetDDL;
 
     public DepInheritView(SingleFrameApplication app) {
         super(app);
@@ -418,13 +419,15 @@ public class DepInheritView extends FrameView {
             return;
         }        
         
-        
+        String[][] tableValues; // = new String[asset.getLifeOfItem()][4];
+
         if(rdo_straightLine.isSelected()) {
-            // use straight line method
-            AssetSL assetSL = new AssetSL(assetName, assetCost, salvageValue, lifeOfItem); 
+            assetSL = new AssetSL(assetName, assetCost, salvageValue, lifeOfItem); 
+            tableValues = new String[assetSL.getLifeOfItem()][4];
         } else if (rdo_doubleDeclining.isSelected()) {
             // use double declining method
-            AssetDDL assetDDL = new AssetDDL(assetName, assetCost, salvageValue, lifeOfItem);
+   //         AssetDDL assetDDL = new AssetDDL(assetName, assetCost, salvageValue, lifeOfItem);
+            tableValues = new String[0][4];
         } else {
             statusMessageLabel.setText("Unknown depreciation type.");
             return;
@@ -434,23 +437,20 @@ public class DepInheritView extends FrameView {
         
         // Schedule column names
         String[] columnNames = {"Year", "Beginning Balance", "Annual Depreciation", "Ending Balance"};
-        String[][] tableValues = new String[asset.getLifeOfItem()][4];
-
+        
         DefaultTableModel model = new DefaultTableModel(tableValues, columnNames);
         tbl_schedule.setModel(model);
         
         NumberFormat currency = NumberFormat.getCurrencyInstance();
-        for(int year = 1; year <= asset.getLifeOfItem(); year++) {
+        for(int year = 1; year <= lifeOfItem; year++) {
             tbl_schedule.setValueAt(year, year - 1, 0);
-            tbl_schedule.setValueAt(currency.format(asset.getBeginningBalance(year, method)), year - 1, 1);
-            if(method.equalsIgnoreCase("S")) {
-   //             tbl_schedule.setValueAt(currency.format(asset.getAnnualDepreciation()), year - 1, 2);
-            } else {
-                tbl_schedule.setValueAt(currency.format(asset.getAnnualDepreciation(year)), year - 1, 2);
+            if(rdo_straightLine.isSelected()) {
+                
+                tbl_schedule.setValueAt(currency.format(assetSL.getBeginningBalance(year)), year - 1, 1);
+                tbl_schedule.setValueAt(currency.format(assetSL.getAnnualDepreciation()), year - 1, 2);
+                tbl_schedule.setValueAt(currency.format(assetSL.getEndingBalance(year)), year - 1, 3); 
             }
-            tbl_schedule.setValueAt(currency.format(asset.getEndingBalance(year, method)), year - 1, 3); 
         }
-        System.out.println("Test value: " + asset.getAnnualDepreciation(1));
     }//GEN-LAST:event_btn_calculateActionPerformed
 
     private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearActionPerformed
@@ -481,7 +481,7 @@ public class DepInheritView extends FrameView {
             statusMessageLabel.setText("Save canceled.");            
         } else {
             String path = f.getSelectedFile().getAbsolutePath();
-            statusMessageLabel.setText(asset.setSave(path));
+  //          statusMessageLabel.setText(asset.setSave(path));
         }
         
         

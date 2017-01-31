@@ -25,12 +25,6 @@ public class Asset {
     private double salvageValue;
     private int lifeOfAsset;
 
-    // Data arrays for depreciation table
-    private double[][] beginningBalance;
-    private double[][] annualDepreciation;
-    private double[][] endingBalance;
-
-    private boolean built;
     private String errorMessage;  // what is this?
 
     // Default constructor
@@ -39,7 +33,6 @@ public class Asset {
         this.assetCost = 0;
         this.salvageValue = 0;
         this.lifeOfAsset = 0;
-        this.built = false;
         this.errorMessage = "";
     }
 
@@ -50,7 +43,6 @@ public class Asset {
         this.assetCost = cost;
         this.salvageValue = salvage;
         this.lifeOfAsset = life;
-        this.built = false;
         this.errorMessage = "";
 
         if (isValid()) {
@@ -129,7 +121,7 @@ public class Asset {
    // } // end getAnnualDepreciation()
 
 
-
+/*
     public double getAnnualDepreciation(int year) {
 
         // Double declining depreciation
@@ -147,8 +139,8 @@ public class Asset {
         }
         return this.annualDepreciation[year - 1][1];
     } // end getAnnualDepreciation(y)
-
-    public double getBeginningBalance(int year, String method) {
+*/
+/*    public double getBeginningBalance(int year, String method) {
 
         if (!this.built) {
             if (isValid()) {
@@ -171,8 +163,10 @@ public class Asset {
             return - 1;
         }
     } // end getBegBal()
-
-    public double getEndingBalance(int year, String method) {
+*/
+    
+    
+/*    public double getEndingBalance(int year, String method) {
 
         if (!this.built) {
             if (isValid()) {
@@ -195,7 +189,8 @@ public class Asset {
             return - 1;
         }
     } // end getEndingBalance()
-
+*/
+    
     public String getAssetName() {
         return assetName;
     }
@@ -217,7 +212,7 @@ public class Asset {
     }
 
     // Validate data
-    /*  public boolean isValid() {
+    /*  private boolean isValid() {
 
         boolean valid = false;
 
@@ -260,7 +255,7 @@ public class Asset {
         this.lifeOfAsset = lifeOfItem;
     }
 
-    private boolean isValid() {
+    protected boolean isValid() {
         this.errorMessage = "";
         if (this.assetName.isEmpty()) {
             this.errorMessage += "Asset name is missing. ";
@@ -280,7 +275,7 @@ public class Asset {
         return this.errorMessage.isEmpty();
     }
 
-    public String setSave(String path) {
+/*    public String setSave(String path) {
 
         String rmsg = "";
         if (!this.built) {
@@ -310,7 +305,7 @@ public class Asset {
         }
         return rmsg;
     }
-
+*/
     /* build process doesn't deal with double declining.
     try Dep = Beg. Balance * DDL Rate
     
