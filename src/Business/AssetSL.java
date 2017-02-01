@@ -26,6 +26,7 @@ public class AssetSL extends Asset {
 
     public AssetSL(String name, double cost, double salvage, int life) {
         super(name, cost, salvage, life);
+        
         if (super.isValid()) {
             build();
         }
