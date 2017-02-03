@@ -275,6 +275,11 @@ public class Asset {
         return this.errorMessage.isEmpty();
     }
 
+    
+    protected void setErrorMessage(String emsg) {
+        this.errorMessage = emsg;
+    } // end setErrorMessage()
+    
 /*    public String setSave(String path) {
 
         String rmsg = "";

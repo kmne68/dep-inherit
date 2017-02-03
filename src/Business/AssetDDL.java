@@ -11,9 +11,9 @@ public class AssetDDL extends Asset {
 
     private double[] beginningBalance;
     private double[] endingBalance;
-    private double annualDepreciation;
+    private double[] annualDepreciation;
     private boolean built;
-
+    
     public AssetDDL() {
         super();
         
@@ -34,62 +34,54 @@ public class AssetDDL extends Asset {
             this.built = false;
         } else {
             try {
-                double depreciationStraightLine = ((super.getAssetCost() - super.getSalvageValue()) / super.getLifeOfItem());
                 this.beginningBalance = new double[super.getLifeOfItem()];
                 this.endingBalance = new double[super.getLifeOfItem()];
+                this.annualDepreciation = new double[super.getLifeOfItem()];
                 
-                this.annualDepreciation = (1.0 / super.getLifeOfItem()) * 2;
+                double rateDoubleDeclining = (1.0 / super.getLifeOfItem()) * 2.0;
+                double depreciationStraightLine = (super.getAssetCost() - super.getSalvageValue()) / super.getLifeOfItem();
+                
                 this.beginningBalance[0] = super.getAssetCost();
-                
                 for(int year = 0; year < super.getLifeOfItem(); year++) {
                     if(year > 0) {
                         this.beginningBalance[year] = this.endingBalance[year - 1];
                     }
-                    double depreciationWork = this.beginningBalance[year] * annualDepreciation;
-                    if (depreciationWork < depreciationStraightLine) {
-                        depreciationWork = depreciationStraightLine;
+                    double tempDoubleDeclining = this.beginningBalance[year] * rateDoubleDeclining;
+                    if(tempDoubleDeclining < depreciationStraightLine) {
+                        tempDoubleDeclining = depreciationStraightLine;
                     }
-                    if ((this.beginningBalance[year] - depreciationWork) < super.getSalvageValue()) {
-                    depreciationWork = this.beginningBalance[year] - super.getSalvageValue();
+                    if((this.beginningBalance[year] - tempDoubleDeclining) < super.getSalvageValue()) {
+                        tempDoubleDeclining = this.beginningBalance[year] - super.getSalvageValue();
                     }
-                    this.annualDepreciation = depreciationWork;
-                    this.endingBalance[year] = this.beginningBalance[year] - this.annualDepreciation;
-                                                        
+                    this.annualDepreciation[year] = tempDoubleDeclining;
+                    this.endingBalance[year] = this.beginningBalance[year] - this.annualDepreciation[year];                            
                 }
                 this.built = true;
                 
             } catch (Exception e) {
+                super.setErrorMessage("Build error: " + e.getMessage());
                 this.built = false;
             }
         }        
-    }      
-    
+    }    
 
     
-        public double getAnnualDepreciation(int year) {
+    public double getAnnualDepreciation(int year) {
 
         if (!this.built) {
-            if (isValid()) {
-                build();
-            }
+            build();
             if (!this.built) {
                 return -1;
             }
     } 
-
-        return this.annualDepreciation;
+        return this.annualDepreciation[year - 1];
     }
     
-        
-        
-        
     
     public double getBeginningBalance(int year) {
 
         if (!this.built) {
-            if (isValid()) {
                 build();
-            }
             if (!this.built) {
                 return -1;
             }
@@ -109,4 +101,7 @@ public class AssetDDL extends Asset {
         }
         return endingBalance[year - 1];
     } // end getEndingBalance()
+    
+    
+    
 }

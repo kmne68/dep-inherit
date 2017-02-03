@@ -389,7 +389,7 @@ public class DepInheritView extends FrameView {
     private void btn_calculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calculateActionPerformed
         
         String assetName = txt_assetName.getText();
-        String method = ""; // local method to select calculation method
+    //    String method = ""; // local method to select calculation method
         
         double assetCost;
         double salvageValue;
@@ -423,11 +423,19 @@ public class DepInheritView extends FrameView {
 
         if(rdo_straightLine.isSelected()) {
             assetSL = new AssetSL(assetName, assetCost, salvageValue, lifeOfItem); 
-            tableValues = new String[assetSL.getLifeOfItem()][4];
+        if(!assetSL.getErrorMessage().isEmpty()) {
+            statusMessageLabel.setText(assetSL.getErrorMessage());
+            return;
+        }
+        tableValues = new String[assetSL.getLifeOfItem()][4];
         } else if (rdo_doubleDeclining.isSelected()) {
             // use double declining method
-   //         AssetDDL assetDDL = new AssetDDL(assetName, assetCost, salvageValue, lifeOfItem);
-            tableValues = new String[0][4];
+            assetDDL = new AssetDDL(assetName, assetCost, salvageValue, lifeOfItem);
+            if(!assetDDL.getErrorMessage().isEmpty()) {
+                statusMessageLabel.setText(assetDDL.getErrorMessage());
+                return;
+            }
+            tableValues = new String[assetDDL.getLifeOfItem()][4];
         } else {
             statusMessageLabel.setText("Unknown depreciation type.");
             return;
@@ -449,6 +457,10 @@ public class DepInheritView extends FrameView {
                 tbl_schedule.setValueAt(currency.format(assetSL.getBeginningBalance(year)), year - 1, 1);
                 tbl_schedule.setValueAt(currency.format(assetSL.getAnnualDepreciation()), year - 1, 2);
                 tbl_schedule.setValueAt(currency.format(assetSL.getEndingBalance(year)), year - 1, 3); 
+            } else if (rdo_doubleDeclining.isSelected()) {
+                tbl_schedule.setValueAt(currency.format(assetDDL.getBeginningBalance(year)), year - 1, 1);
+                tbl_schedule.setValueAt(currency.format(assetDDL.getAnnualDepreciation(year)), year - 1, 2);
+                tbl_schedule.setValueAt(currency.format(assetDDL.getEndingBalance(year)), year - 1, 3);
             }
         }
     }//GEN-LAST:event_btn_calculateActionPerformed
