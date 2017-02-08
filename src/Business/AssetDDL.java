@@ -7,7 +7,7 @@ package Business;
  * Instructor P. Daniel
  * Assignment 2
  */
-public class AssetDDL extends Asset {
+public class AssetDDL extends AssetDeclining {
 
     private double[] beginningBalance;
     private double[] endingBalance;

@@ -1,61 +1,60 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Business;
 
-/**
- *
- * @author Keith
+/*
+ * @author Keith Emery
+ * IS 287
+ * Spring, 2017
+ * Instructor P. Daniel
+ * Assignment 2
  */
-public class AssetOHDL extends AssetDeclining {
+public class AssetDeclining extends Asset {
 
     private double[] beginningBalance;
     private double[] endingBalance;
     private double[] annualDepreciation;
     private boolean built;
-
-    public AssetOHDL() {
+    
+    public AssetDeclining() {
         super();
-
+        
         this.built = false;
     }
 
-    public AssetOHDL(String name, double cost, double salvage, int life) {
+    public AssetDeclining(String name, double cost, double salvage, int life) {
         super(name, cost, salvage, life);
 
         if (super.isValid()) {
-            build();
+        //    build();
         }
     }
-
+    
+/*    
     private void build() {
-        if (!super.isValid()) {
+        if(!super.isValid()) {
             this.built = false;
         } else {
             try {
                 this.beginningBalance = new double[super.getLifeOfItem()];
                 this.endingBalance = new double[super.getLifeOfItem()];
                 this.annualDepreciation = new double[super.getLifeOfItem()];
-
-                double rateOneHalfDeclining = (1.0 / super.getLifeOfItem()) * 1.5;
+                
+                double rateDoubleDeclining = (1.0 / super.getLifeOfItem()) * 2.0;
                 double depreciationStraightLine = (super.getAssetCost() - super.getSalvageValue()) / super.getLifeOfItem();
-
+                
                 this.beginningBalance[0] = super.getAssetCost();
-                for (int year = 0; year < super.getLifeOfItem(); year++) {
-                    if (year > 0) {
+                for(int year = 0; year < super.getLifeOfItem(); year++) {
+                    if(year > 0) {
                         this.beginningBalance[year] = this.endingBalance[year - 1];
                     }
-                    double tempOHDL = this.beginningBalance[year] * rateOneHalfDeclining;
-                    if (tempOHDL < depreciationStraightLine) {
-                        tempOHDL = depreciationStraightLine;
+                    double tempDoubleDeclining = this.beginningBalance[year] * rateDoubleDeclining;
+                    if(tempDoubleDeclining < depreciationStraightLine) {
+                        tempDoubleDeclining = depreciationStraightLine;
                     }
-                    if ((this.beginningBalance[year] - tempOHDL) < super.getSalvageValue()) {
-                        tempOHDL = this.beginningBalance[year] - super.getSalvageValue();
+                    if((this.beginningBalance[year] - tempDoubleDeclining) < super.getSalvageValue()) {
+                        tempDoubleDeclining = this.beginningBalance[year] - super.getSalvageValue();
                     }
-                    this.annualDepreciation[year] = tempOHDL;
-                    this.endingBalance[year] = this.beginningBalance[year] - this.annualDepreciation[year];
+                    this.annualDepreciation[year] = tempDoubleDeclining;
+                    this.endingBalance[year] = this.beginningBalance[year] - this.annualDepreciation[year];                            
                 }
                 this.built = true;
                 
@@ -63,10 +62,11 @@ public class AssetOHDL extends AssetDeclining {
                 super.setErrorMessage("Build error: " + e.getMessage());
                 this.built = false;
             }
-        }
-    }
+        }        
+    }    
+*/
     
-    public double getAnnualDepreciation(int year) {
+/*    public double getAnnualDepreciation(int year) {
 
         if (!this.built) {
             build();
@@ -76,9 +76,9 @@ public class AssetOHDL extends AssetDeclining {
     } 
         return this.annualDepreciation[year - 1];
     }
+*/    
     
-    
-    public double getBeginningBalance(int year) {
+/*    public double getBeginningBalance(int year) {
 
         if (!this.built) {
                 build();
@@ -88,8 +88,9 @@ public class AssetOHDL extends AssetDeclining {
         }
         return beginningBalance[year - 1];
     } // end getBeginningBalance()
-
-    public double getEndingBalance(int year) {
+*/
+    
+/*    public double getEndingBalance(int year) {
 
         if (!this.built) {
             if (isValid()) {
@@ -101,6 +102,7 @@ public class AssetOHDL extends AssetDeclining {
         }
         return endingBalance[year - 1];
     } // end getEndingBalance()
+*/    
     
-
+    
 }
