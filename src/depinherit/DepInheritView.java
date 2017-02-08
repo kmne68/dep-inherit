@@ -6,6 +6,7 @@ package depinherit;
 
 import Business.Asset;
 import Business.AssetDDL;
+import Business.AssetOHDL;
 import Business.AssetSL;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
@@ -32,6 +33,7 @@ public class DepInheritView extends FrameView {
     
     AssetSL assetSL;
     AssetDDL assetDDL;
+    AssetOHDL assetOHDL;
 
     public DepInheritView(SingleFrameApplication app) {
         super(app);
@@ -43,6 +45,7 @@ public class DepInheritView extends FrameView {
         
    // add buttons to radio group
         methodGroup.add(rdo_straightLine);
+        methodGroup.add(rdo_OHDL);
         methodGroup.add(rdo_doubleDeclining);
 
         // status bar initialization - message timeout, idle icon and busy animation, etc
@@ -138,6 +141,7 @@ public class DepInheritView extends FrameView {
         btn_clear = new javax.swing.JButton();
         pnl_schedule = new javax.swing.JScrollPane();
         tbl_schedule = new javax.swing.JTable();
+        rdo_OHDL = new javax.swing.JRadioButton();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -231,31 +235,34 @@ public class DepInheritView extends FrameView {
         tbl_schedule.setName("tbl_schedule"); // NOI18N
         pnl_schedule.setViewportView(tbl_schedule);
 
+        rdo_OHDL.setText(resourceMap.getString("rdo_OHDL.text")); // NOI18N
+        rdo_OHDL.setName("rdo_OHDL"); // NOI18N
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_assetName)
-                    .addComponent(txt_assetName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addGap(59, 59, 59)
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_cost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_cost))
-                        .addGap(49, 49, 49)
+                            .addComponent(lbl_assetName)
+                            .addComponent(txt_assetName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(mainPanelLayout.createSequentialGroup()
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(mainPanelLayout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(lbl_salvageValue)
-                                .addGap(66, 66, 66)
-                                .addComponent(lbl_life))
+                                .addGap(179, 179, 179)
+                                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_cost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_cost)))
                             .addGroup(mainPanelLayout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addComponent(rdo_straightLine)))
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(mainPanelLayout.createSequentialGroup()
+                                .addGap(49, 49, 49)
                                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(rdo_doubleDeclining)
                                     .addGroup(mainPanelLayout.createSequentialGroup()
                                         .addComponent(txt_salvageValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(73, 73, 73)
@@ -263,17 +270,29 @@ public class DepInheritView extends FrameView {
                                     .addGroup(mainPanelLayout.createSequentialGroup()
                                         .addComponent(btn_calculate)
                                         .addGap(133, 133, 133)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_clear))))
-                    .addComponent(rdo_straightLine)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                        .addComponent(lbl_selectMethod)
-                        .addGap(224, 224, 224)))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addComponent(btn_clear))
+                            .addGroup(mainPanelLayout.createSequentialGroup()
+                                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(mainPanelLayout.createSequentialGroup()
+                                        .addGap(66, 66, 66)
+                                        .addComponent(lbl_salvageValue)
+                                        .addGap(66, 66, 66)
+                                        .addComponent(lbl_life))
+                                    .addGroup(mainPanelLayout.createSequentialGroup()
+                                        .addGap(23, 23, 23)
+                                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lbl_selectMethod)
+                                            .addGroup(mainPanelLayout.createSequentialGroup()
+                                                .addComponent(rdo_OHDL)
+                                                .addGap(69, 69, 69)
+                                                .addComponent(rdo_doubleDeclining)))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnl_schedule, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,15 +310,16 @@ public class DepInheritView extends FrameView {
                     .addComponent(txt_salvageValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_life, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_clear))
-                .addGap(54, 54, 54)
+                .addGap(49, 49, 49)
                 .addComponent(lbl_selectMethod)
-                .addGap(39, 39, 39)
+                .addGap(44, 44, 44)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdo_straightLine)
+                    .addComponent(rdo_OHDL)
                     .addComponent(rdo_doubleDeclining))
                 .addGap(18, 18, 18)
                 .addComponent(btn_calculate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnl_schedule, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
         );
@@ -348,7 +368,7 @@ public class DepInheritView extends FrameView {
         statusPanel.setLayout(statusPanelLayout);
         statusPanelLayout.setHorizontalGroup(
             statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
+            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
             .addGroup(statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(statusMessageLabel)
@@ -428,7 +448,17 @@ public class DepInheritView extends FrameView {
             return;
         }
         tableValues = new String[assetSL.getLifeOfItem()][4];
-        } else if (rdo_doubleDeclining.isSelected()) {
+        } 
+        else if (rdo_OHDL.isSelected()) {
+            // use one-half declining method
+            assetOHDL = new AssetOHDL(assetName, assetCost, salvageValue, lifeOfItem);
+            if(!assetOHDL.getErrorMessage().isEmpty()) {
+                statusMessageLabel.setText(assetOHDL.getErrorMessage());
+                return;
+            }
+            tableValues = new String[assetOHDL.getLifeOfItem()][4];
+        }
+        else if (rdo_doubleDeclining.isSelected()) {
             // use double declining method
             assetDDL = new AssetDDL(assetName, assetCost, salvageValue, lifeOfItem);
             if(!assetDDL.getErrorMessage().isEmpty()) {
@@ -457,7 +487,14 @@ public class DepInheritView extends FrameView {
                 tbl_schedule.setValueAt(currency.format(assetSL.getBeginningBalance(year)), year - 1, 1);
                 tbl_schedule.setValueAt(currency.format(assetSL.getAnnualDepreciation()), year - 1, 2);
                 tbl_schedule.setValueAt(currency.format(assetSL.getEndingBalance(year)), year - 1, 3); 
-            } else if (rdo_doubleDeclining.isSelected()) {
+            } 
+            else if (rdo_OHDL.isSelected()) {
+                tbl_schedule.setValueAt(currency.format(assetOHDL.getBeginningBalance(year)), year - 1, 1);
+                tbl_schedule.setValueAt(currency.format(assetOHDL.getAnnualDepreciation(year)), year -1, 2);
+                tbl_schedule.setValueAt(currency.format(assetOHDL.getEndingBalance(year)), year - 1, 3);
+                
+            }
+            else if (rdo_doubleDeclining.isSelected()) {
                 tbl_schedule.setValueAt(currency.format(assetDDL.getBeginningBalance(year)), year - 1, 1);
                 tbl_schedule.setValueAt(currency.format(assetDDL.getAnnualDepreciation(year)), year - 1, 2);
                 tbl_schedule.setValueAt(currency.format(assetDDL.getEndingBalance(year)), year - 1, 3);
@@ -493,7 +530,7 @@ public class DepInheritView extends FrameView {
             statusMessageLabel.setText("Save canceled.");            
         } else {
             String path = f.getSelectedFile().getAbsolutePath();
-  //          statusMessageLabel.setText(asset.setSave(path));
+            statusMessageLabel.setText(assetSL.setSave(path));
         }
         
         
@@ -517,6 +554,7 @@ public class DepInheritView extends FrameView {
     private javax.swing.ButtonGroup methodGroup;
     private javax.swing.JScrollPane pnl_schedule;
     private javax.swing.JProgressBar progressBar;
+    private javax.swing.JRadioButton rdo_OHDL;
     private javax.swing.JRadioButton rdo_doubleDeclining;
     private javax.swing.JRadioButton rdo_straightLine;
     private javax.swing.JLabel statusAnimationLabel;

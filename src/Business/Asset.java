@@ -280,10 +280,10 @@ public class Asset {
         this.errorMessage = emsg;
     } // end setErrorMessage()
     
-/*    public String setSave(String path) {
+    public String setSave(String path) {
 
         String rmsg = "";
-        if (!this.built) {
+  /*      if (!this.built) {
             if (isValid()) {
     //            build();
             }
@@ -291,13 +291,14 @@ public class Asset {
 
                 return "Save requested for non-active asset.";
             }
-        }
-
+        } */
+ 
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter(path));
 
             out.write(this.assetName);
-            out.write(String.valueOf(this.assetCost + "\n"));
+            out.newLine();
+            out.write(String.valueOf(this.assetCost));
             out.newLine();
             out.write(String.valueOf(this.salvageValue));
             out.newLine();
@@ -310,16 +311,4 @@ public class Asset {
         }
         return rmsg;
     }
-*/
-    /* build process doesn't deal with double declining.
-    try Dep = Beg. Balance * DDL Rate
-    
-    DDLRate = (1/life) * 2
-    
-    adjust dep 
-        a) if dep < straight line, then dep can be switched to straight line
-        b) if beginBalance - Dep < salvage then adjust dep so result = salvage
-    
-    do above or inside for statement inside build
-     */
 }
