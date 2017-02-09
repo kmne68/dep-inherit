@@ -14,22 +14,26 @@ public class AssetDeclining extends Asset {
     private double[] annualDepreciation;
     private boolean built;
     
+    private double rateFactor;
+    
     public AssetDeclining() {
         super();
         
-        this.built = false;
+    //    this.built = false;
     }
 
-    public AssetDeclining(String name, double cost, double salvage, int life) {
+    public AssetDeclining(String name, double cost, double salvage, int life, double rate) {
         super(name, cost, salvage, life);
+        this.rateFactor = rate;
 
         if (super.isValid()) {
-        //    build();
+            build();
         }
     }
     
-/*    
+    
     private void build() {
+       
         if(!super.isValid()) {
             this.built = false;
         } else {
@@ -38,7 +42,7 @@ public class AssetDeclining extends Asset {
                 this.endingBalance = new double[super.getLifeOfItem()];
                 this.annualDepreciation = new double[super.getLifeOfItem()];
                 
-                double rateDoubleDeclining = (1.0 / super.getLifeOfItem()) * 2.0;
+                double rateDoubleDeclining = (1.0 / super.getLifeOfItem()) * rateFactor;
                 double depreciationStraightLine = (super.getAssetCost() - super.getSalvageValue()) / super.getLifeOfItem();
                 
                 this.beginningBalance[0] = super.getAssetCost();
@@ -64,9 +68,9 @@ public class AssetDeclining extends Asset {
             }
         }        
     }    
-*/
+
     
-/*    public double getAnnualDepreciation(int year) {
+    public double getAnnualDepreciation(int year) {
 
         if (!this.built) {
             build();
@@ -76,9 +80,9 @@ public class AssetDeclining extends Asset {
     } 
         return this.annualDepreciation[year - 1];
     }
-*/    
     
-/*    public double getBeginningBalance(int year) {
+    
+    public double getBeginningBalance(int year) {
 
         if (!this.built) {
                 build();
@@ -88,9 +92,9 @@ public class AssetDeclining extends Asset {
         }
         return beginningBalance[year - 1];
     } // end getBeginningBalance()
-*/
+
     
-/*    public double getEndingBalance(int year) {
+    public double getEndingBalance(int year) {
 
         if (!this.built) {
             if (isValid()) {
@@ -101,8 +105,7 @@ public class AssetDeclining extends Asset {
             }
         }
         return endingBalance[year - 1];
-    } // end getEndingBalance()
-*/    
+    } // end getEndingBalance()  
     
     
 }

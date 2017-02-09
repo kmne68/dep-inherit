@@ -40,8 +40,8 @@ public class DepInheritView extends FrameView {
 
         initComponents();
         tbl_schedule.setName(null);
-     //   DefaultTableCellRenderer rend = (DefaultTableCellRenderer) tbl_schedule.getDefaultRenderer(Object.class);
-     //   rend.setHorizontalAlignment(JLabel.RIGHT);
+        DefaultTableCellRenderer scheduleTablelRenderer = (DefaultTableCellRenderer) tbl_schedule.getDefaultRenderer(Object.class);
+        scheduleTablelRenderer.setHorizontalAlignment(JLabel.RIGHT);
         
    // add buttons to radio group
         methodGroup.add(rdo_straightLine);
@@ -455,7 +455,7 @@ public class DepInheritView extends FrameView {
             if(!assetOHDL.getErrorMessage().isEmpty()) {
                 statusMessageLabel.setText(assetOHDL.getErrorMessage());
                 return;
-            }
+            } 
             tableValues = new String[assetOHDL.getLifeOfItem()][4];
         }
         else if (rdo_doubleDeclining.isSelected()) {
@@ -532,7 +532,6 @@ public class DepInheritView extends FrameView {
             String path = f.getSelectedFile().getAbsolutePath();
             statusMessageLabel.setText(assetSL.setSave(path));
         }
-        
         
         
     }//GEN-LAST:event_jMenuSaveActionPerformed
