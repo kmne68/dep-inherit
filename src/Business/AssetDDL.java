@@ -5,7 +5,7 @@ package Business;
  * IS 287
  * Spring, 2017
  * Instructor P. Daniel
- * Assignment 2
+ * Assignment 3
  */
 public class AssetDDL extends AssetDeclining {
     public static final double FACTOR = 2.0;
